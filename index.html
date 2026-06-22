@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -328,7 +328,6 @@ table.dataTable tbody tr:hover td{background:rgba(37,99,235,.1)}
     <div class="proj-switch">
       <button class="proj-btn active" data-project="comercial" title="Cafam Comercial"><i class="fa-solid fa-store"></i><span class="nav-label">Comercial</span></button>
       <button class="proj-btn" data-project="institucional" title="Cafam Institucional"><i class="fa-solid fa-building-columns"></i><span class="nav-label">Institucional</span></button>
-      <button class="proj-btn" data-project="biologicos" title="Cafam Biológicos"><i class="fa-solid fa-dna"></i><span class="nav-label">Biológicos</span></button>
     </div>
     <div class="nav-group" data-project="comercial">
     <div class="nav-section">Análisis</div>
@@ -342,16 +341,14 @@ table.dataTable tbody tr:hover td{background:rgba(37,99,235,.1)}
     <div class="nav-item" data-view="ia"><i class="fa-solid fa-brain"></i><span class="nav-label">IA Operativa</span></div>
     </div><!-- /nav-group comercial -->
     <div class="nav-group" data-project="institucional" hidden>
-      <div class="nav-section">Institucional</div>
-      <div class="nav-item" data-view="inst-historico"><i class="fa-solid fa-clock-rotate-left"></i><span class="nav-label">Histórico</span></div>
-      <div class="nav-item" data-view="inst-gestion"><i class="fa-solid fa-list-check"></i><span class="nav-label">Gestión</span></div>
-      <div class="nav-item" data-view="inst-carry"><i class="fa-solid fa-truck-ramp-box"></i><span class="nav-label">Gestión Carry</span></div>
-      <div class="nav-section">Inteligencia</div>
-      <div class="nav-item" data-view="inst-ia"><i class="fa-solid fa-brain"></i><span class="nav-label">IA Institucional</span></div>
-    </div>
-    <div class="nav-group" data-project="biologicos" hidden>
-      <div class="nav-section">Biológicos</div>
-      <div class="nav-item" data-view="bio-soon"><i class="fa-solid fa-dna"></i><span class="nav-label">Resumen</span></div>
+      <div class="nav-section">Nacional</div>
+      <div class="nav-item" data-view="inst-nacional"><i class="fa-solid fa-map-location-dot"></i><span class="nav-label">Nacional</span></div>
+      <div class="nav-section">Calle 51</div>
+      <div class="nav-item" data-view="inst-recibido"><i class="fa-solid fa-box-archive"></i><span class="nav-label">Recibido Calle 51</span></div>
+      <div class="nav-item" data-view="inst-novc51"><i class="fa-solid fa-triangle-exclamation"></i><span class="nav-label">Novedades Calle 51</span></div>
+      <div class="nav-section">Operación</div>
+      <div class="nav-item" data-view="inst-gestion51"><i class="fa-solid fa-list-check"></i><span class="nav-label">Gestión</span></div>
+      <div class="nav-item" data-view="inst-ia"><i class="fa-solid fa-brain"></i><span class="nav-label">Resumen IA</span></div>
     </div>
     <div class="nav-foot">
       <div class="av" style="background:none;padding:0;overflow:hidden"><img src="https://i.ibb.co/KjmjjvNZ/Captura-de-pantalla-2025-09-15-161315.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:10px"></div>
@@ -556,120 +553,126 @@ table.dataTable tbody tr:hover td{background:rgba(37,99,235,.1)}
 
 <!-- ===================== VISTAS CAFAM INSTITUCIONAL ===================== -->
 
-      <!-- ===== HISTÓRICO ===== -->
-      <section class="view" id="inst-historico">
+      <!-- ===== NACIONAL ===== -->
+      <section class="view" id="inst-nacional">
         <div class="card" style="margin-bottom:16px"><div class="card-body" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-          <div style="width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#2563EB,#1d4ed8);display:grid;place-items:center;font-size:20px;color:#fff"><i class="fa-solid fa-building-columns"></i></div>
-          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Histórico</h3><div class="sub">Registro de guías entregadas — fuente: Google Sheets (hoja HISTORICO)</div></div>
-          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="h-stamp">--</span></span></div>
+          <div class="vhead-ic" style="background:linear-gradient(135deg,#2563EB,#1d4ed8)"><i class="fa-solid fa-map-location-dot"></i></div>
+          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Gestión Nacional</h3><div class="sub">Entregas, novedades y cumplimiento por ciudad — CANT NACIONAL + NOVEDADES NACIONAL</div></div>
+          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="nac-stamp">--</span></span></div>
         </div></div>
         <div class="ins-bar">
-          <div class="fld"><label>Mes</label><select id="h-fMes"><option value="">Todos</option></select></div>
-          <div class="fld"><label>Tipo</label><select id="h-fTipo"><option value="">Todos</option></select></div>
-          <div class="fld"><label>Vehículo</label><select id="h-fVeh"><option value="">Todos</option></select></div>
-          <div class="fld"><label>Día semana</label><select id="h-fDia"><option value="">Todos</option></select></div>
-          <div class="fld"><label>Buscar guía</label><input id="h-fSearch" placeholder="N° de guía..."></div>
-          <button class="ins-reset" id="h-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+          <div class="fld"><label>Ciudad</label><select id="nac-fCity"><option value="">Todas</option></select></div>
+          <div class="fld"><label>Mes</label><select id="nac-fMes"><option value="">Todos</option></select></div>
+          <button class="ins-reset" id="nac-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
         </div>
-        <div class="kpi-grid" id="h-kpi"></div>
+        <div class="kpi-grid" id="nac-kpi"></div>
+        <div class="card"><div class="card-h"><div><h3>Entregas (efectivo) por mes y ciudad</h3><div class="sub">Comparativo mensual entre ciudades</div></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-efmes"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Novedades por mes y ciudad</h3><div class="sub">Comparativo mensual entre ciudades</div></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-nvmes"></canvas></div></div></div>
         <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>Cantidad por TIPO de guía</h3><div class="sub">Distribución por categoría</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="h-tipo"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>Cantidad por VEHÍCULO</h3><div class="sub">Medio de entrega</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="h-veh"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Total entregas y novedades por ciudad</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-ciudad"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>% de cumplimiento por ciudad</h3><div class="sub">Efectivo ÷ total</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-cumpl"></canvas></div></div></div>
         </div>
-        <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>Cantidad por DÍA</h3><div class="sub">Volumen diario de guías</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="h-dia"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>Tendencia por SEMANA</h3><div class="sub">Evolución semanal del volumen</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="h-sem"></canvas></div></div></div>
-        </div>
-        <div class="card ai-hero" style="margin-bottom:16px"><div class="card-body"><div class="ai-orb"><i class="fa-solid fa-brain"></i></div>
-          <div style="flex:1"><h3 style="font-family:var(--font-d);font-size:17px">Informe IA — Histórico</h3>
-          <p style="color:var(--text-dim);font-size:13px;margin:4px 0 10px">Análisis automático, tendencias y sugerencias generadas a partir de la hoja HISTORICO.</p>
-          <button class="ia-gen-btn" id="h-ia-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Generar informe</button></div></div></div>
-        <div class="card" id="h-ia-card" style="display:none;margin-bottom:16px"><div class="card-body"><div class="ia-report" id="h-ia-out"></div></div></div>
-        <div class="card"><div class="card-h"><div><h3>Detalle de guías</h3><div class="sub" id="h-count">0 registros</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="h-table"></table></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Entregas por día — pico de operación</h3><div class="sub">Volumen diario de entregas efectivas</div></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-dia"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Tendencia por semana</h3><div class="sub">Total movido por semana — identifica la semana de mayor actividad</div></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-sem"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>% de cumplimiento por mes</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-cumes"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Tipo de novedad por mes</h3><div class="sub">Barras horizontales para lectura clara del texto</div></div></div><div class="card-body"><div class="chart-wrap tall"><canvas id="nac-novmes"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Tipo de novedad por ciudad</h3><div class="sub">Barras horizontales</div></div></div><div class="card-body"><div class="chart-wrap tall"><canvas id="nac-novciu"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Detalle nacional</h3><div class="sub" id="nac-count">0 registros</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="nac-table"></table></div></div></div>
       </section>
 
-      <!-- ===== GESTIÓN ===== -->
-      <section class="view" id="inst-gestion">
+      <!-- ===== RECIBIDO CALLE 51 ===== -->
+      <section class="view" id="inst-recibido">
         <div class="card" style="margin-bottom:16px"><div class="card-body" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-          <div style="width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#22C55E,#16a34a);display:grid;place-items:center;font-size:20px;color:#fff"><i class="fa-solid fa-list-check"></i></div>
-          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Gestión</h3><div class="sub">Entregas, ruta, piso y cumplimiento — hoja GESTIÓN</div></div>
-          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="gest-stamp">--</span></span></div>
+          <div class="vhead-ic" style="background:linear-gradient(135deg,#22C55E,#16a34a)"><i class="fa-solid fa-box-archive"></i></div>
+          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Recibido Calle 51</h3><div class="sub">Guías recibidas — hoja RECIBIDO CALLE 51</div></div>
+          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="rec-stamp">--</span></span></div>
+        </div></div>
+        <div class="seg-toggle" id="rec-toggle">
+          <button class="seg-btn active" data-veh="MOTORIZADO"><i class="fa-solid fa-motorcycle"></i> Motorizado</button>
+          <button class="seg-btn" data-veh="CARRY"><i class="fa-solid fa-truck"></i> Carry</button>
+          <button class="seg-btn" data-veh=""><i class="fa-solid fa-layer-group"></i> Ambos</button>
+        </div>
+        <div class="ins-bar">
+          <div class="fld"><label>Mes</label><select id="rec-fMes"><option value="">Todos</option></select></div>
+          <div class="fld"><label>Tipo</label><select id="rec-fTipo"><option value="">Todos</option></select></div>
+          <button class="ins-reset" id="rec-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+        </div>
+        <div class="kpi-grid" id="rec-kpi"></div>
+        <div class="card"><div class="card-h"><div><h3>Cantidad por mes</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="rec-mes"></canvas></div></div></div>
+        <div class="grid-2">
+          <div class="card"><div class="card-h"><div><h3>Cantidad por día — pico</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="rec-dia"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Tendencia por semana</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="rec-sem"></canvas></div></div></div>
+        </div>
+        <div class="card"><div class="card-h"><div><h3>Cantidad por tipo</h3><div class="sub">Barras horizontales</div></div></div><div class="card-body"><div class="chart-wrap tall"><canvas id="rec-tipo"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Detalle</h3><div class="sub" id="rec-count">0 guías</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="rec-table"></table></div></div></div>
+      </section>
+
+      <!-- ===== NOVEDADES CALLE 51 ===== -->
+      <section class="view" id="inst-novc51">
+        <div class="card" style="margin-bottom:16px"><div class="card-body" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div class="vhead-ic" style="background:linear-gradient(135deg,#EAB308,#ca8a04)"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Novedades Calle 51</h3><div class="sub">Análisis de novedades — hoja NOVEDADES CALLE 51</div></div>
+          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="nvc-stamp">--</span></span></div>
         </div></div>
         <div class="ins-bar">
-          <div class="fld"><label>Mes</label><select id="gest-fMes"><option value="">Todos</option></select></div>
-          <button class="ins-reset" id="gest-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+          <div class="fld"><label>Mes</label><select id="nvc-fMes"><option value="">Todos</option></select></div>
+          <div class="fld"><label>Novedad</label><select id="nvc-fNov"><option value="">Todas</option></select></div>
+          <div class="fld"><label>Tipo</label><select id="nvc-fTipo"><option value="">Todos</option></select></div>
+          <button class="ins-reset" id="nvc-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
         </div>
-        <div class="kpi-grid" id="gest-kpi"></div>
+        <div class="kpi-grid" id="nvc-kpi"></div>
+        <div class="card"><div class="card-h"><div><h3>Novedades por mes</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nvc-mes"></canvas></div></div></div>
         <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>Entregan · Sale a ruta · En piso por MES</h3><div class="sub">Comparativo mensual</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="gest-mes"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>Flujo diario: Sale a ruta vs En piso</h3><div class="sub">Apilado por día</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="gest-flujo"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Novedades por día</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nvc-dia"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Tendencia por semana</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nvc-sem"></canvas></div></div></div>
         </div>
-        <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>TOTAL AL DÍA</h3><div class="sub">Piso de ayer + entregado hoy</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="gest-total"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>% de Cumplimiento</h3><div class="sub">Meta 85% · verde ≥85, amarillo ≥70, rojo &lt;70</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="gest-cumpl"></canvas></div></div></div>
-        </div>
-        <div class="card ai-hero" style="margin-bottom:16px"><div class="card-body"><div class="ai-orb"><i class="fa-solid fa-brain"></i></div>
-          <div style="flex:1"><h3 style="font-family:var(--font-d);font-size:17px">Informe IA — Gestión</h3>
-          <p style="color:var(--text-dim);font-size:13px;margin:4px 0 10px">Análisis de cumplimiento, backlog y recomendaciones de la hoja GESTIÓN.</p>
-          <button class="ia-gen-btn" id="gest-ia-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Generar informe</button></div></div></div>
-        <div class="card" id="gest-ia-card" style="display:none;margin-bottom:16px"><div class="card-body"><div class="ia-report" id="gest-ia-out"></div></div></div>
-        <div class="card"><div class="card-h"><div><h3>Detalle diario</h3><div class="sub" id="gest-count">0 días</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="gest-table"></table></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Cantidad por tipo de novedad</h3><div class="sub">Barras horizontales para lectura clara</div></div></div><div class="card-body"><div class="chart-wrap tall"><canvas id="nvc-nov"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Novedades por tipo de entrega</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nvc-tipo"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Detalle</h3><div class="sub" id="nvc-count">0 registros</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="nvc-table"></table></div></div></div>
       </section>
 
-      <!-- ===== GESTIÓN CARRY ===== -->
-      <section class="view" id="inst-carry">
+      <!-- ===== GESTIÓN (motos / carry) ===== -->
+      <section class="view" id="inst-gestion51">
         <div class="card" style="margin-bottom:16px"><div class="card-body" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-          <div style="width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#EAB308,#ca8a04);display:grid;place-items:center;font-size:20px;color:#fff"><i class="fa-solid fa-truck-ramp-box"></i></div>
-          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Gestión Carry</h3><div class="sub">Gestión de vehículos Carry — hoja GESTIÓN CARRY</div></div>
-          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="carry-stamp">--</span></span></div>
+          <div class="vhead-ic" style="background:linear-gradient(135deg,#A855F7,#7c3aed)"><i class="fa-solid fa-list-check"></i></div>
+          <div><h3 style="font-family:var(--font-d);font-size:17px">Cafam Institucional · Gestión</h3><div class="sub">Cumplimiento diario — hoja GESTIÓN (motos y carry)</div></div>
+          <div style="margin-left:auto"><span class="live-pill"><span class="live-dot"></span> <span id="g51-stamp">--</span></span></div>
         </div></div>
+        <div class="card" style="margin-bottom:16px"><div class="card-h"><div><h3><i class="fa-solid fa-chart-pie" style="color:var(--blue)"></i> Resumen general</h3><div class="sub">Comparativo motos vs carry</div></div></div><div class="card-body"><div id="g51-resumen"></div></div></div>
+        <div class="seg-toggle" id="g51-toggle">
+          <button class="seg-btn active" data-mode="motos"><i class="fa-solid fa-motorcycle"></i> Motos</button>
+          <button class="seg-btn" data-mode="carry"><i class="fa-solid fa-truck"></i> Carry</button>
+        </div>
         <div class="ins-bar">
-          <div class="fld"><label>Mes</label><select id="carry-fMes"><option value="">Todos</option></select></div>
-          <button class="ins-reset" id="carry-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+          <div class="fld"><label>Mes</label><select id="g51-fMes"><option value="">Todos</option></select></div>
+          <button class="ins-reset" id="g51-reset"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
         </div>
-        <div class="kpi-grid" id="carry-kpi"></div>
+        <div class="kpi-grid" id="g51-kpi"></div>
+        <div class="card"><div class="card-h"><div><h3>Entregan · Sale a ruta · En piso por mes</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="g51-mes"></canvas></div></div></div>
         <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>Entregan · Sale a ruta · En piso por MES</h3><div class="sub">Comparativo mensual</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="carry-mes"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>Flujo diario: Sale a ruta vs En piso</h3><div class="sub">Apilado por día</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="carry-flujo"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Flujo diario: sale a ruta vs en piso</h3></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="g51-flujo"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>TOTAL AL DÍA</h3><div class="sub">Piso de ayer + entregado hoy</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="g51-total"></canvas></div></div></div>
         </div>
-        <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>TOTAL AL DÍA</h3><div class="sub">Piso de ayer + entregado hoy</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="carry-total"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>% de Cumplimiento</h3><div class="sub">Meta 85% · verde ≥85, amarillo ≥70, rojo &lt;70</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="carry-cumpl"></canvas></div></div></div>
-        </div>
-        <div class="card ai-hero" style="margin-bottom:16px"><div class="card-body"><div class="ai-orb"><i class="fa-solid fa-brain"></i></div>
-          <div style="flex:1"><h3 style="font-family:var(--font-d);font-size:17px">Informe IA — Gestión Carry</h3>
-          <p style="color:var(--text-dim);font-size:13px;margin:4px 0 10px">Análisis de cumplimiento, backlog y recomendaciones de la hoja GESTIÓN CARRY.</p>
-          <button class="ia-gen-btn" id="carry-ia-btn"><i class="fa-solid fa-wand-magic-sparkles"></i> Generar informe</button></div></div></div>
-        <div class="card" id="carry-ia-card" style="display:none;margin-bottom:16px"><div class="card-body"><div class="ia-report" id="carry-ia-out"></div></div></div>
-        <div class="card"><div class="card-h"><div><h3>Detalle diario</h3><div class="sub" id="carry-count">0 días</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="carry-table"></table></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>% de cumplimiento</h3><div class="sub">Meta 85% · verde ≥85, amarillo ≥70, rojo &lt;70</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="g51-cumpl"></canvas></div></div></div>
+        <div class="card"><div class="card-h"><div><h3>Detalle diario</h3><div class="sub" id="g51-count">0 días</div></div></div><div class="card-body"><div class="ins-table-wrap"><table class="ins-table" id="g51-table"></table></div></div></div>
       </section>
 
-      <!-- ===== IA INSTITUCIONAL ===== -->
+      <!-- ===== RESUMEN IA ===== -->
       <section class="view" id="inst-ia">
         <div class="card ai-hero"><div class="card-body"><div class="ai-orb"><i class="fa-solid fa-brain"></i></div>
           <div style="flex:1"><h3 style="font-family:var(--font-d);font-size:18px">Inteligencia Cafam Institucional</h3>
-          <p style="color:var(--text-dim);font-size:13.5px;margin-top:4px">Informes ejecutivos, análisis y sugerencias generadas automáticamente a partir de las hojas HISTORICO, GESTIÓN y GESTIÓN CARRY.</p>
+          <p style="color:var(--text-dim);font-size:13.5px;margin-top:4px">Informes ejecutivos, análisis y sugerencias generadas automáticamente a partir de Nacional, Calle 51 y Gestión.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="ia-gen-btn" onclick="instReport('consolidado')"><i class="fa-solid fa-file-lines"></i> Informe consolidado</button>
-            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#2563EB,#1d4ed8)" onclick="instReport('historico')"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</button>
-            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#22C55E,#16a34a)" onclick="instReport('gestion')"><i class="fa-solid fa-list-check"></i> Gestión</button>
-            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#EAB308,#ca8a04)" onclick="instReport('carry')"><i class="fa-solid fa-truck-ramp-box"></i> Gestión Carry</button>
+            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#2563EB,#1d4ed8)" onclick="instReport('nacional')"><i class="fa-solid fa-map-location-dot"></i> Nacional</button>
+            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#EAB308,#ca8a04)" onclick="instReport('calle51')"><i class="fa-solid fa-triangle-exclamation"></i> Calle 51</button>
+            <button class="ia-gen-btn" style="background:linear-gradient(135deg,#A855F7,#7c3aed)" onclick="instReport('gestion')"><i class="fa-solid fa-list-check"></i> Gestión</button>
           </div></div></div></div>
         <div class="card"><div class="card-h"><div><h3><i class="fa-solid fa-lightbulb" style="color:var(--yellow)"></i> Informe &amp; análisis</h3></div></div><div class="card-body"><div class="ia-report" id="inst-ia-out">Selecciona un informe para generar el análisis...</div></div></div>
         <div class="grid-2">
           <div class="card"><div class="card-h"><div><h3><i class="fa-solid fa-clipboard-check" style="color:var(--green)"></i> Sugerencias</h3></div></div><div class="card-body"><div class="ia-report" id="inst-ia-sug">—</div></div></div>
           <div class="card"><div class="card-h"><div><h3><i class="fa-solid fa-bell" style="color:var(--red)"></i> Alertas</h3></div></div><div class="card-body"><div class="ia-report" id="inst-ia-alert">—</div></div></div>
         </div>
-      </section>
-
-      <!-- ===== BIOLÓGICOS (placeholder) ===== -->
-      <section class="view" id="bio-soon">
-        <div class="card"><div class="card-body"><div class="bio-soon">
-          <div class="orb"><i class="fa-solid fa-dna"></i></div>
-          <h3 style="font-family:var(--font-d);font-size:22px">Cafam Biológicos</h3>
-          <p style="color:var(--text-dim);max-width:480px;font-size:14px">Módulo reservado para el proyecto Cafam Biológicos. Cuando tengas la hoja de Google Sheets con la información, se conecta igual que Institucional (histórico, gestión y cumplimiento).</p>
-          <span class="pill pill-y">Próximamente</span>
-        </div></div></div>
       </section>
 
 <!-- ===================== FIN INSTITUCIONAL ===================== -->
@@ -695,6 +698,18 @@ table.dataTable tbody tr:hover td{background:rgba(37,99,235,.1)}
 .ins-bar select:focus,.ins-bar input:focus{border-color:var(--blue)}
 .ins-reset{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:10px 15px;border-radius:10px;cursor:pointer;font-weight:600;font-size:12.5px}
 .ins-reset:hover{background:rgba(239,68,68,.2)}
+.vhead-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:20px;color:#fff;flex-shrink:0}
+.chart-wrap.xl{height:400px}
+.chart-wrap.tall{height:540px}
+.seg-toggle{display:inline-flex;gap:4px;background:var(--surface-solid);border:1px solid var(--border-strong);border-radius:12px;padding:4px;margin-bottom:16px}
+.seg-btn{border:none;background:transparent;color:var(--text-dim);padding:9px 20px;border-radius:9px;cursor:pointer;font-family:var(--font-b);font-weight:600;font-size:13px;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.seg-btn:hover{color:var(--text)}
+.seg-btn.active{background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;box-shadow:var(--glow-blue)}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.res-box{background:var(--surface-solid);border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+.res-t{font-size:12.5px;color:var(--text-dim);font-weight:600;display:flex;align-items:center;gap:7px}
+.res-v{font-family:var(--font-d);font-size:28px;font-weight:800;margin:6px 0 2px}
+.res-s{font-size:11.5px;color:var(--text-soft)}
 .ins-table-wrap{max-height:520px;overflow:auto;border-radius:var(--radius-sm);border:1px solid var(--border)}
 .ins-table{width:100%;border-collapse:collapse;font-size:12.5px}
 .ins-table th{position:sticky;top:0;background:var(--surface-solid);color:var(--text-dim);text-align:left;padding:11px 13px;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border-strong);z-index:2}
@@ -1928,20 +1943,22 @@ function openMensajeroSearch(){
 (function(){
 /* ---------- Configuración hoja Institucional ---------- */
 const INST_CFG={
-  sheetId:'1_UABh2jlVG8oBV__camLy0iavIyKP0ICGRTscaUqmKs',
+  sheetId:'1vQlOjv1jBl06nWzYkNt7opdSa6ZrMgPMDonlbnvlCcU',
   url(s){return `https://docs.google.com/spreadsheets/d/${this.sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(s)}`;}
 };
 
 /* ---------- Estado ---------- */
-let HIST=[],GEST=[],GESTC=[],instCharts={},instLoaded=false,instLoading=false,PROJECT='comercial';
+let NAC=[],NOVNAC=[],RECI=[],NOVC=[],GMOT=[],GCAR=[];
+let instCharts={},instLoaded=false,instLoading=false,PROJECT='comercial';
+let recVeh='MOTORIZADO', g51Mode='motos';
 
 /* Registrar títulos de las nuevas vistas en PAGES (usado por switchView) */
 try{Object.assign(PAGES,{
-  'inst-historico':['Histórico Institucional','Registro y análisis de guías entregadas'],
-  'inst-gestion':['Gestión Institucional','Entregas, ruta, piso y cumplimiento diario'],
-  'inst-carry':['Gestión Carry','Gestión de vehículos Carry'],
-  'inst-ia':['IA Institucional','Informes, análisis y sugerencias automáticas'],
-  'bio-soon':['Cafam Biológicos','Módulo en preparación']
+  'inst-nacional':['Gestión Nacional','Entregas, novedades y cumplimiento por ciudad'],
+  'inst-recibido':['Recibido Calle 51','Guías recibidas — motorizado y carry'],
+  'inst-novc51':['Novedades Calle 51','Análisis de novedades de Calle 51'],
+  'inst-gestion51':['Gestión Calle 51','Cumplimiento diario — motos y carry'],
+  'inst-ia':['Resumen IA Institucional','Informes, análisis y sugerencias automáticas']
 });}catch(e){console.warn('No se pudo extender PAGES',e);}
 
 /* ---------- Utilidades ---------- */
@@ -1953,13 +1970,18 @@ const num=x=>parseFloat(String(x==null?'':x).replace(/[^0-9.\-]/g,''))||0;
 const pct=(a,b)=>b?(a/b*100).toFixed(1):'0';
 const sortObj=o=>Object.fromEntries(Object.entries(o).sort((a,b)=>b[1]-a[1]));
 const groupCount=(arr,key)=>arr.reduce((a,r)=>{const k=key(r)||'—';a[k]=(a[k]||0)+1;return a;},{});
+const groupSum=(arr,key,val)=>arr.reduce((a,r)=>{const k=key(r)||'—';a[k]=(a[k]||0)+(val(r)||0);return a;},{});
+const DOW=['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
+const MES_ORDER=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+const sortMes=arr=>[...arr].sort((a,b)=>MES_ORDER.indexOf(a)-MES_ORDER.indexOf(b));
+const CITY_COLOR={'Bucaramanga':'#2563EB','Cúcuta':'#22C55E','Santa Marta':'#EAB308'};
 function parseD(s){const m=String(s).match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);if(!m)return null;let y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1]);}
 function isoWeek(dt){const d=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);const ys=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil(((d-ys)/86400000+1)/7);}
 const weekKey=dt=>dt.getFullYear()+'-S'+String(isoWeek(dt)).padStart(2,'0');
 function gradFill(hex){return c=>{const ctx=c.chart.ctx;const g=ctx.createLinearGradient(0,0,0,300);g.addColorStop(0,hex+'66');g.addColorStop(1,hex+'00');return g;};}
 const stampNow=()=>new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
 function mkChart(id,cfg){const el=document.getElementById(id);if(!el)return;if(instCharts[id]){instCharts[id].destroy();}instCharts[id]=new Chart(el,cfg);}
-function fillSel(id,vals){const s=document.getElementById(id);if(!s)return;const cur=s.value;s.innerHTML='<option value="">Todos</option>'+vals.map(x=>`<option>${x}</option>`).join('');s.value=cur;}
+function fillSel(id,vals){const s=document.getElementById(id);if(!s)return;const cur=s.value;const ph=s.querySelector('option')?s.querySelector('option').textContent:'Todos';s.innerHTML=`<option value="">${ph}</option>`+vals.map(x=>`<option>${x}</option>`).join('');s.value=cur;}
 function renderTable(id,headers,rows){const t=document.getElementById(id);if(!t)return;t.innerHTML='<thead><tr>'+headers.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(c=>`<td>${c==null?'':c}</td>`).join('')+'</tr>').join('')+'</tbody>';}
 function kpiCards(container,arr){
   const g=document.getElementById(container);if(!g)return;g.innerHTML='';
@@ -1974,88 +1996,212 @@ function slope(y){const n=y.length;if(n<2)return 0;const xs=y.map((_,i)=>i);cons
 const cumplPill=c=>`<span class="pill ${c>=85?'pill-g':c>=70?'pill-y':'pill-r'}">${c}%</span>`;
 const BC={get base(){return (typeof chartBase!=='undefined')?chartBase:{responsive:true,maintainAspectRatio:false};},get grid(){return (typeof gridScale!=='undefined')?gridScale:{};}};
 const CO=(typeof COLORS!=='undefined')?COLORS:{blue:'#2563EB',green:'#22C55E',yellow:'#EAB308',red:'#EF4444',gray:'#94A3B8',purple:'#A855F7'};
+const legBase={labels:(BC.base.plugins&&BC.base.plugins.legend)?BC.base.plugins.legend.labels:{color:'#94A3B8'}};
 
-/* ---------- Carga de datos ---------- */
+/* ---------- Parsers ---------- */
 function fetchInst(sheet,header){return new Promise((res,rej)=>{Papa.parse(INST_CFG.url(sheet),{download:true,header:header,skipEmptyLines:true,complete:r=>res(r.data),error:rej});});}
-function parseHist(raw){return raw.map(r=>({
-  mes:(r.MES||'').trim(),dia:r['DÍA'],fecha:(r.FECHA||'').trim(),tipo:(r.TIPO||'').trim(),
-  guia:(r['GUÍA']||'').toString().trim(),diaSem:(r['DÍA SEMANA']||'').trim(),
-  fechaLeg:(r['FECHA LEGALIZACIÓN']||'').trim(),total:num(r.TOTAL)||1,vehiculo:(r.VEHICULO||'').trim()
-})).filter(r=>r.fecha&&r.tipo);}
-function parseGest(rows){const out=[];for(let i=1;i<rows.length;i++){const r=rows[i];if(!r)continue;
-  const fecha=String(r[3]||'').trim();
-  if(!/\d{1,2}\/\d{1,2}\/\d{2,4}/.test(fecha))continue;
-  out.push({dia:String(r[0]||'').trim(),diaNum:String(r[1]||'').trim(),mes:String(r[2]||'').trim().toUpperCase(),fecha,
-    entregan:num(r[4]),saleRuta:num(r[5]),enPiso:num(r[6]),totalDia:num(r[7]),cumpl:num(r[8]),obs:String(r[9]||'').trim(),
-    _d:+(parseD(fecha)||0)});}
-  return out;}
+function parseNacional(rows){
+  const blocks=[{city:'Bucaramanga',off:0},{city:'Cúcuta',off:8},{city:'Santa Marta',off:16}];
+  const out=[];
+  for(let i=1;i<rows.length;i++){const r=rows[i];if(!r)continue;
+    blocks.forEach(b=>{
+      const fecha=String(r[b.off]||'').trim();
+      if(!/\d{1,2}\/\d{1,2}\/\d{2,4}/.test(fecha))return;
+      const ef=num(r[b.off+1]),nv=num(r[b.off+2]),tot=num(r[b.off+3])||(ef+nv);
+      const d=parseD(fecha);
+      out.push({city:b.city,fecha,efectivo:ef,novedad:nv,total:tot,mes:String(r[b.off+4]||'').trim().toUpperCase(),
+        _d:+(d||0),dow:d?DOW[d.getDay()]:'',week:d?weekKey(d):''});
+    });
+  }
+  return out;
+}
+function parseNovNac(rows){
+  const cities=['Bucaramanga','Cúcuta','Santa Marta'];
+  const months=['MAR','ABR','MAY','JUN'];
+  const out=[];let ci=-1;
+  rows.forEach(r=>{
+    if(!r||!r.length)return;
+    const first=String(r[0]||'').trim();
+    if(first.toUpperCase()==='NOVEDAD'){ci++;return;}
+    if(ci<0||ci>=cities.length||!first)return;
+    months.forEach((m,j)=>{const val=num(r[1+j]);if(val)out.push({city:cities[ci],novedad:first,mes:m,count:val});});
+  });
+  return out;
+}
+function parseRecibido(raw){return raw.map(r=>{
+  const fecha=(r.FECHA||'').trim();const d=parseD(fecha);
+  return {mes:(r.MES||'').trim().toUpperCase(),fecha,tipo:(r.TIPO||'').trim(),guia:(r['GUÍA']||'').toString().trim(),
+    diaSem:(r['DÍA SEMANA']||'').trim(),vehiculo:(r.VEHICULO||'').trim().toUpperCase(),total:num(r.TOTAL)||1,
+    _d:+(d||0),week:d?weekKey(d):''};
+}).filter(r=>r.fecha);}
+function parseNovC51(raw){return raw.map(r=>{
+  const fecha=(r['FECHA DE GESTIÓN']||'').trim();const d=parseD(fecha);
+  return {fechaGestion:fecha,fechaLeg:(r['FECHA DE LEGALIZACIÓN']||'').trim(),tipo:(r.TIPO||'').trim(),
+    entrega:(r.ENTREGA||'').trim(),novedad:(r.NOVEDAD||'').trim(),mes:(r.MES||'').trim().toUpperCase(),
+    diaSem:(r.SEMANA||'').trim(),_d:+(d||0),week:d?weekKey(d):''};
+}).filter(r=>r.fechaGestion&&r.novedad);}
+function parseGest51(rows){
+  const motos=[],carry=[];
+  const push=(r,off,arr)=>{const fecha=String(r[off+3]||'').trim();if(!/\d{1,2}\/\d{1,2}\/\d{2,4}/.test(fecha))return;
+    arr.push({dia:String(r[off]||'').trim(),mes:String(r[off+2]||'').trim().toUpperCase(),fecha,
+      entregan:num(r[off+4]),saleRuta:num(r[off+5]),enPiso:num(r[off+6]),totalDia:num(r[off+7]),cumpl:num(r[off+8]),
+      _d:+(parseD(fecha)||0)});};
+  for(let i=1;i<rows.length;i++){const r=rows[i];if(!r)continue;push(r,0,motos);push(r,10,carry);}
+  return {motos,carry};
+}
 
 async function ensureInst(){
   if(instLoaded||instLoading)return;
   instLoading=true;
-  ['h-count','gest-count','carry-count'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='Cargando datos de Google Sheets…';});
+  ['nac-count','rec-count','nvc-count','g51-count'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='Cargando datos de Google Sheets…';});
   try{
-    const [h,g,c]=await Promise.all([fetchInst('HISTORICO',true),fetchInst('GESTIÓN',false),fetchInst('GESTIÓN CARRY',false)]);
-    HIST=parseHist(h);GEST=parseGest(g);GESTC=parseGest(c);
+    const [cn,nn,rc,nc,g]=await Promise.all([
+      fetchInst('CANT NACIONAL',false),
+      fetchInst('NOVEDADES NACIONAL',false),
+      fetchInst('RECIBIDO CALLE 51',true),
+      fetchInst('NOVEDADES CALLE 51',true),
+      fetchInst('GESTIÓN',false)
+    ]);
+    NAC=parseNacional(cn);NOVNAC=parseNovNac(nn);RECI=parseRecibido(rc);NOVC=parseNovC51(nc);
+    const gg=parseGest51(g);GMOT=gg.motos;GCAR=gg.carry;
     instLoaded=true;
-    renderHistorico();renderGestion('gest',GEST);renderGestion('carry',GESTC);instReport('consolidado');
-    setTimeout(()=>Object.values(instCharts).forEach(ch=>{try{ch.resize();}catch(e){}}),140);
-  }catch(e){console.warn('Institucional: fallo de carga',e);const el=document.getElementById('h-count');if(el)el.textContent='Error al conectar con Google Sheets (revisa que la hoja esté publicada/compartida).';}
+    renderNacional();renderRecibido();renderNovC51();renderGest51();instReport('consolidado');
+    setTimeout(()=>Object.values(instCharts).forEach(ch=>{try{ch.resize();}catch(e){}}),160);
+  }catch(e){console.warn('Institucional: fallo de carga',e);const el=document.getElementById('nac-count');if(el)el.textContent='Error al conectar con Google Sheets (verifica que la hoja sea pública: "Cualquiera con el enlace · Lector").';}
   instLoading=false;
 }
 
-/* ---------- HISTÓRICO ---------- */
-function histFiltered(){
-  const mes=v('h-fMes'),tipo=v('h-fTipo'),veh=v('h-fVeh'),dia=v('h-fDia'),q=(v('h-fSearch')||'').toLowerCase();
-  return HIST.filter(r=>(!mes||r.mes===mes)&&(!tipo||r.tipo===tipo)&&(!veh||r.vehiculo===veh)&&(!dia||r.diaSem===dia)&&(!q||String(r.guia).toLowerCase().includes(q)));
-}
-function renderHistorico(){
-  if(!HIST.length)return;
-  fillSel('h-fMes',uniq(HIST.map(r=>r.mes)));
-  fillSel('h-fTipo',uniq(HIST.map(r=>r.tipo)));
-  fillSel('h-fVeh',uniq(HIST.map(r=>r.vehiculo)));
-  fillSel('h-fDia',uniq(HIST.map(r=>r.diaSem)));
-  const D=histFiltered();
-  const porFecha=groupCount(D,r=>r.fecha);
-  const fechas=uniq(D.map(r=>r.fecha)).sort((a,b)=>(parseD(a)||0)-(parseD(b)||0));
-  const dias=fechas.length;
+/* ---------- NACIONAL ---------- */
+function renderNacional(){
+  if(!NAC.length)return;
+  fillSel('nac-fCity',uniq(NAC.map(r=>r.city)));
+  fillSel('nac-fMes',sortMes(uniq(NAC.map(r=>r.mes))));
+  const city=v('nac-fCity'),mes=v('nac-fMes');
+  const D=NAC.filter(r=>(!city||r.city===city)&&(!mes||r.mes===mes));
+  const ef=D.reduce((a,r)=>a+r.efectivo,0),nv=D.reduce((a,r)=>a+r.novedad,0),tot=D.reduce((a,r)=>a+r.total,0);
+  const cumpl=tot?ef/tot*100:0;
+  const porFecha=groupSum(D,r=>r.fecha,r=>r.efectivo);
   const pico=Object.entries(porFecha).sort((a,b)=>b[1]-a[1])[0]||['—',0];
-  kpiCards('h-kpi',[
-    {l:'Total guías',v:D.length,ic:'fa-barcode',c:'blue'},
-    {l:'Tipos',v:uniq(D.map(r=>r.tipo)).length,ic:'fa-tags',c:'purple'},
-    {l:'Vehículos',v:uniq(D.map(r=>r.vehiculo)).length,ic:'fa-truck',c:'green'},
-    {l:'Días operados',v:dias,ic:'fa-calendar-day',c:'yellow'},
-    {l:'Promedio guías/día',v:dias?D.length/dias:0,dec:1,ic:'fa-chart-simple',c:'blue'},
-    {l:'Día pico',v:pico[1],suf:' g',ic:'fa-arrow-up-right-dots',c:'green',t:pico[0],up:1}
+  kpiCards('nac-kpi',[
+    {l:'Total efectivo',v:ef,ic:'fa-circle-check',c:'green'},
+    {l:'Total novedades',v:nv,ic:'fa-triangle-exclamation',c:'red'},
+    {l:'Total general',v:tot,ic:'fa-boxes-stacked',c:'blue'},
+    {l:'% Cumplimiento',v:cumpl,suf:'%',dec:1,ic:'fa-gauge-high',c:cumpl>=90?'green':cumpl>=80?'yellow':'red',t:cumpl>=90?'Óptimo':'Revisar',up:cumpl>=90?1:0},
+    {l:'Ciudades',v:uniq(D.map(r=>r.city)).length,ic:'fa-city',c:'purple'},
+    {l:'Día pico',v:pico[1],suf:' ent',ic:'fa-arrow-up-right-dots',c:'green',t:pico[0],up:1}
   ]);
-  const tipo=sortObj(groupCount(D,r=>r.tipo));
-  mkChart('h-tipo',{type:'bar',data:{labels:Object.keys(tipo),datasets:[{data:Object.values(tipo),backgroundColor:palette(Object.keys(tipo).length),borderRadius:8,maxBarThickness:46}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
-  const veh=groupCount(D,r=>r.vehiculo);
-  mkChart('h-veh',{type:'doughnut',data:{labels:Object.keys(veh),datasets:[{data:Object.values(veh),backgroundColor:palette(Object.keys(veh).length),borderWidth:0,hoverOffset:8}]},options:{...BC.base,cutout:'62%',plugins:{legend:{position:'right',labels:BC.base.plugins?BC.base.plugins.legend.labels:{}}}}});
-  mkChart('h-dia',{type:'bar',data:{labels:fechas,datasets:[{label:'Guías',data:fechas.map(f=>porFecha[f]||0),backgroundColor:CO.blue,borderRadius:6,maxBarThickness:26}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
-  const sem=groupCount(D,r=>{const d=parseD(r.fecha);return d?weekKey(d):null;});
-  const semK=Object.keys(sem).filter(k=>k&&k!=='—').sort();
-  mkChart('h-sem',{type:'line',data:{labels:semK,datasets:[{label:'Guías/semana',data:semK.map(k=>sem[k]),borderColor:CO.green,backgroundColor:gradFill('#22C55E'),fill:true,tension:.4,borderWidth:2.6,pointRadius:4,pointBackgroundColor:CO.green}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
-  renderTable('h-table',['MES','FECHA','TIPO','GUÍA','DÍA SEMANA','LEGALIZACIÓN','VEHÍCULO'],
-    D.slice(0,800).map(r=>[r.mes,r.fecha,r.tipo,r.guia,r.diaSem,r.fechaLeg||'—',r.vehiculo]));
-  const cEl=document.getElementById('h-count');if(cEl)cEl.textContent=D.length.toLocaleString('es')+' registros'+(D.length>800?' (mostrando 800)':'');
-  const sEl=document.getElementById('h-stamp');if(sEl)sEl.textContent=stampNow();
+  const cities=city?[city]:uniq(NAC.map(r=>r.city));
+  const meses=sortMes(uniq(NAC.map(r=>r.mes)));
+  const sumCM=(c,m,f)=>NAC.filter(r=>r.city===c&&r.mes===m).reduce((a,r)=>a+r[f],0);
+  mkChart('nac-efmes',{type:'bar',data:{labels:meses,datasets:cities.map(c=>({label:c,data:meses.map(m=>sumCM(c,m,'efectivo')),backgroundColor:CITY_COLOR[c]||CO.gray,borderRadius:6,maxBarThickness:44}))},options:{...BC.base,plugins:{legend:legBase},scales:{x:BC.grid,y:BC.grid}}});
+  mkChart('nac-nvmes',{type:'bar',data:{labels:meses,datasets:cities.map(c=>({label:c,data:meses.map(m=>sumCM(c,m,'novedad')),backgroundColor:CITY_COLOR[c]||CO.gray,borderRadius:6,maxBarThickness:44}))},options:{...BC.base,plugins:{legend:legBase},scales:{x:BC.grid,y:BC.grid}}});
+  mkChart('nac-ciudad',{type:'bar',data:{labels:cities,datasets:[
+    {label:'Efectivo',data:cities.map(c=>D.filter(r=>r.city===c).reduce((a,r)=>a+r.efectivo,0)),backgroundColor:CO.green,borderRadius:6,maxBarThickness:54},
+    {label:'Novedades',data:cities.map(c=>D.filter(r=>r.city===c).reduce((a,r)=>a+r.novedad,0)),backgroundColor:CO.red,borderRadius:6,maxBarThickness:54}
+  ]},options:{...BC.base,plugins:{legend:legBase},scales:{x:BC.grid,y:BC.grid}}});
+  mkChart('nac-cumpl',{type:'bar',data:{labels:cities,datasets:[{data:cities.map(c=>{const cd=D.filter(r=>r.city===c);const t=cd.reduce((a,r)=>a+r.total,0),e=cd.reduce((a,r)=>a+r.efectivo,0);return t?+(e/t*100).toFixed(1):0;}),backgroundColor:cities.map(c=>CITY_COLOR[c]||CO.gray),borderRadius:8,maxBarThickness:70}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,suggestedMax:100}}}});
+  const fechas=uniq(D.map(r=>r.fecha)).sort((a,b)=>(parseD(a)||0)-(parseD(b)||0));
+  mkChart('nac-dia',{type:'line',data:{labels:fechas,datasets:[{label:'Efectivo',data:fechas.map(f=>D.filter(r=>r.fecha===f).reduce((a,r)=>a+r.efectivo,0)),borderColor:CO.blue,backgroundColor:gradFill('#2563EB'),fill:true,tension:.35,borderWidth:2.4,pointRadius:2}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const sem=groupSum(D,r=>r.week,r=>r.total);const semK=Object.keys(sem).filter(k=>k&&k!=='—').sort();
+  mkChart('nac-sem',{type:'line',data:{labels:semK,datasets:[{label:'Total/semana',data:semK.map(k=>sem[k]),borderColor:CO.purple,backgroundColor:gradFill('#A855F7'),fill:true,tension:.4,borderWidth:2.6,pointRadius:4,pointBackgroundColor:CO.purple}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  mkChart('nac-cumes',{type:'line',data:{labels:meses,datasets:[{label:'% Cumplimiento',data:meses.map(m=>{const md=D.filter(r=>r.mes===m);const t=md.reduce((a,r)=>a+r.total,0),e=md.reduce((a,r)=>a+r.efectivo,0);return t?+(e/t*100).toFixed(1):0;}),borderColor:CO.green,backgroundColor:gradFill('#22C55E'),fill:true,tension:.38,borderWidth:2.6,pointRadius:4}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,suggestedMax:100}}}});
+  const novD=NOVNAC.filter(r=>!city||r.city===city);
+  const tipos=uniq(novD.map(r=>r.novedad));
+  const mesesNov=['MAR','ABR','MAY','JUN'].filter(m=>!mes||m===mes);
+  mkChart('nac-novmes',{type:'bar',data:{labels:tipos,datasets:mesesNov.map((m,i)=>({label:m,data:tipos.map(t=>novD.filter(r=>r.novedad===t&&r.mes===m).reduce((a,r)=>a+r.count,0)),backgroundColor:PAL[i],borderRadius:5}))},options:{...BC.base,indexAxis:'y',plugins:{legend:legBase},scales:{x:BC.grid,y:{...BC.grid,ticks:{color:'#94A3B8',font:{size:11},autoSkip:false}}}}});
+  const citiesNov=city?[city]:uniq(NOVNAC.map(r=>r.city));
+  const tiposAll=uniq(NOVNAC.map(r=>r.novedad));
+  mkChart('nac-novciu',{type:'bar',data:{labels:tiposAll,datasets:citiesNov.map(c=>({label:c,data:tiposAll.map(t=>NOVNAC.filter(r=>r.novedad===t&&r.city===c&&(!mes||r.mes===mes)).reduce((a,r)=>a+r.count,0)),backgroundColor:CITY_COLOR[c]||CO.gray,borderRadius:5}))},options:{...BC.base,indexAxis:'y',plugins:{legend:legBase},scales:{x:BC.grid,y:{...BC.grid,ticks:{color:'#94A3B8',font:{size:11},autoSkip:false}}}}});
+  renderTable('nac-table',['CIUDAD','FECHA','MES','EFECTIVO','NOVEDAD','TOTAL','% CUMPL'],
+    [...D].sort((a,b)=>(b._d||0)-(a._d||0)).slice(0,600).map(r=>[r.city,r.fecha,r.mes,r.efectivo,r.novedad,r.total,cumplPill(r.total?+(r.efectivo/r.total*100).toFixed(0):0)]));
+  const cEl=document.getElementById('nac-count');if(cEl)cEl.textContent=D.length.toLocaleString('es')+' registros'+(D.length>600?' (mostrando 600)':'');
+  const sEl=document.getElementById('nac-stamp');if(sEl)sEl.textContent=stampNow();
 }
 
-/* ---------- GESTIÓN / CARRY ---------- */
-function renderGestion(prefix,rows){
-  if(!rows.length)return;
-  fillSel(prefix+'-fMes',uniq(rows.map(r=>r.mes)));
-  const mes=v(prefix+'-fMes');
+/* ---------- RECIBIDO CALLE 51 ---------- */
+function renderRecibido(){
+  if(!RECI.length)return;
+  fillSel('rec-fMes',sortMes(uniq(RECI.map(r=>r.mes))));
+  fillSel('rec-fTipo',uniq(RECI.map(r=>r.tipo)));
+  const mes=v('rec-fMes'),tipo=v('rec-fTipo');
+  const D=RECI.filter(r=>(!recVeh||r.vehiculo===recVeh)&&(!mes||r.mes===mes)&&(!tipo||r.tipo===tipo));
+  const dias=uniq(D.map(r=>r.fecha)).length;
+  kpiCards('rec-kpi',[
+    {l:'Total guías',v:D.length,ic:'fa-barcode',c:'blue'},
+    {l:'Tipos',v:uniq(D.map(r=>r.tipo)).length,ic:'fa-tags',c:'purple'},
+    {l:'Días',v:dias,ic:'fa-calendar-day',c:'yellow'},
+    {l:'Promedio/día',v:dias?D.length/dias:0,dec:1,ic:'fa-chart-simple',c:'green'},
+    {l:'Motorizado',v:RECI.filter(r=>r.vehiculo==='MOTORIZADO').length,ic:'fa-motorcycle',c:'blue'},
+    {l:'Carry',v:RECI.filter(r=>r.vehiculo==='CARRY').length,ic:'fa-truck',c:'green'}
+  ]);
+  const pm=groupCount(D,r=>r.mes);const meses=sortMes(Object.keys(pm));
+  mkChart('rec-mes',{type:'bar',data:{labels:meses,datasets:[{data:meses.map(m=>pm[m]),backgroundColor:CO.blue,borderRadius:8,maxBarThickness:60}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const fechas=uniq(D.map(r=>r.fecha)).sort((a,b)=>(parseD(a)||0)-(parseD(b)||0));const pf=groupCount(D,r=>r.fecha);
+  mkChart('rec-dia',{type:'line',data:{labels:fechas,datasets:[{label:'Guías',data:fechas.map(f=>pf[f]),borderColor:CO.green,backgroundColor:gradFill('#22C55E'),fill:true,tension:.35,borderWidth:2.4,pointRadius:2}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const sem=groupCount(D,r=>r.week);const semK=Object.keys(sem).filter(k=>k&&k!=='—').sort();
+  mkChart('rec-sem',{type:'line',data:{labels:semK,datasets:[{label:'Guías/semana',data:semK.map(k=>sem[k]),borderColor:CO.purple,backgroundColor:gradFill('#A855F7'),fill:true,tension:.4,borderWidth:2.6,pointRadius:4}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const pt=sortObj(groupCount(D,r=>r.tipo));
+  mkChart('rec-tipo',{type:'bar',data:{labels:Object.keys(pt),datasets:[{data:Object.values(pt),backgroundColor:palette(Object.keys(pt).length),borderRadius:6}]},options:{...BC.base,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,ticks:{color:'#94A3B8',font:{size:11},autoSkip:false}}}}});
+  renderTable('rec-table',['MES','FECHA','TIPO','GUÍA','DÍA SEMANA','VEHÍCULO'],
+    [...D].sort((a,b)=>(b._d||0)-(a._d||0)).slice(0,500).map(r=>[r.mes,r.fecha,r.tipo,r.guia,r.diaSem,r.vehiculo]));
+  const cEl=document.getElementById('rec-count');if(cEl)cEl.textContent=D.length.toLocaleString('es')+' guías'+(D.length>500?' (mostrando 500)':'');
+  const sEl=document.getElementById('rec-stamp');if(sEl)sEl.textContent=stampNow();
+}
+
+/* ---------- NOVEDADES CALLE 51 ---------- */
+function renderNovC51(){
+  if(!NOVC.length)return;
+  fillSel('nvc-fMes',sortMes(uniq(NOVC.map(r=>r.mes))));
+  fillSel('nvc-fNov',uniq(NOVC.map(r=>r.novedad)));
+  fillSel('nvc-fTipo',uniq(NOVC.map(r=>r.tipo)));
+  const mes=v('nvc-fMes'),nov=v('nvc-fNov'),tipo=v('nvc-fTipo');
+  const D=NOVC.filter(r=>(!mes||r.mes===mes)&&(!nov||r.novedad===nov)&&(!tipo||r.tipo===tipo));
+  const dias=uniq(D.map(r=>r.fechaGestion)).length;
+  kpiCards('nvc-kpi',[
+    {l:'Total novedades',v:D.length,ic:'fa-triangle-exclamation',c:'red'},
+    {l:'Tipos de novedad',v:uniq(D.map(r=>r.novedad)).length,ic:'fa-tags',c:'purple'},
+    {l:'Días',v:dias,ic:'fa-calendar-day',c:'yellow'},
+    {l:'Promedio/día',v:dias?D.length/dias:0,dec:1,ic:'fa-chart-simple',c:'blue'}
+  ]);
+  const pm=groupCount(D,r=>r.mes);const meses=sortMes(Object.keys(pm));
+  mkChart('nvc-mes',{type:'bar',data:{labels:meses,datasets:[{data:meses.map(m=>pm[m]),backgroundColor:CO.red,borderRadius:8,maxBarThickness:60}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const fechas=uniq(D.map(r=>r.fechaGestion)).sort((a,b)=>(parseD(a)||0)-(parseD(b)||0));const pf=groupCount(D,r=>r.fechaGestion);
+  mkChart('nvc-dia',{type:'line',data:{labels:fechas,datasets:[{label:'Novedades',data:fechas.map(f=>pf[f]),borderColor:CO.yellow,backgroundColor:gradFill('#EAB308'),fill:true,tension:.35,borderWidth:2.4,pointRadius:2}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const sem=groupCount(D,r=>r.week);const semK=Object.keys(sem).filter(k=>k&&k!=='—').sort();
+  mkChart('nvc-sem',{type:'line',data:{labels:semK,datasets:[{label:'Novedades/semana',data:semK.map(k=>sem[k]),borderColor:CO.purple,backgroundColor:gradFill('#A855F7'),fill:true,tension:.4,borderWidth:2.6,pointRadius:4}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  const pn=sortObj(groupCount(D,r=>r.novedad));
+  mkChart('nvc-nov',{type:'bar',data:{labels:Object.keys(pn),datasets:[{data:Object.values(pn),backgroundColor:palette(Object.keys(pn).length),borderRadius:6}]},options:{...BC.base,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,ticks:{color:'#94A3B8',font:{size:11},autoSkip:false}}}}});
+  const ptp=sortObj(groupCount(D,r=>r.tipo));
+  mkChart('nvc-tipo',{type:'bar',data:{labels:Object.keys(ptp),datasets:[{data:Object.values(ptp),backgroundColor:CO.blue,borderRadius:8,maxBarThickness:50}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  renderTable('nvc-table',['FECHA GEST.','LEGALIZ.','TIPO','ENTREGA','NOVEDAD','MES'],
+    [...D].sort((a,b)=>(b._d||0)-(a._d||0)).slice(0,500).map(r=>[r.fechaGestion,r.fechaLeg||'—',r.tipo,r.entrega,r.novedad,r.mes]));
+  const cEl=document.getElementById('nvc-count');if(cEl)cEl.textContent=D.length.toLocaleString('es')+' registros'+(D.length>500?' (mostrando 500)':'');
+  const sEl=document.getElementById('nvc-stamp');if(sEl)sEl.textContent=stampNow();
+}
+
+/* ---------- GESTIÓN (motos / carry) ---------- */
+function renderG51Resumen(){
+  const f=arr=>{const e=arr.reduce((a,r)=>a+r.entregan,0);const c=arr.length?arr.reduce((a,r)=>a+r.cumpl,0)/arr.length:0;return {e,c,d:arr.length};};
+  const m=f(GMOT),c=f(GCAR);const el=document.getElementById('g51-resumen');if(!el)return;
+  el.innerHTML=`<div class="res-grid">
+    <div class="res-box"><div class="res-t"><i class="fa-solid fa-motorcycle" style="color:var(--blue)"></i> Motos</div><div class="res-v">${m.e.toLocaleString('es')}</div><div class="res-s">entregan · ${m.c.toFixed(1)}% cumpl · ${m.d} días</div></div>
+    <div class="res-box"><div class="res-t"><i class="fa-solid fa-truck" style="color:var(--green)"></i> Carry</div><div class="res-v">${c.e.toLocaleString('es')}</div><div class="res-s">entregan · ${c.c.toFixed(1)}% cumpl · ${c.d} días</div></div>
+    <div class="res-box"><div class="res-t"><i class="fa-solid fa-layer-group" style="color:var(--purple)"></i> Total</div><div class="res-v">${(m.e+c.e).toLocaleString('es')}</div><div class="res-s">entregas combinadas motos + carry</div></div>
+  </div>`;
+}
+function renderGest51(){
+  renderG51Resumen();
+  const rows=g51Mode==='motos'?GMOT:GCAR;
+  if(!rows.length){const e=document.getElementById('g51-count');if(e)e.textContent='Sin datos';return;}
+  fillSel('g51-fMes',sortMes(uniq(rows.map(r=>r.mes))));
+  const mes=v('g51-fMes');
   const D=rows.filter(r=>!mes||r.mes===mes);
   const Ds=[...D].sort((a,b)=>(a._d||0)-(b._d||0));
   const sum=k=>D.reduce((a,r)=>a+(r[k]||0),0);
-  const cumpls=D.map(r=>r.cumpl);
-  const prom=cumpls.length?cumpls.reduce((a,b)=>a+b,0)/cumpls.length:0;
-  const best=[...D].sort((a,b)=>b.cumpl-a.cumpl)[0];
-  const worst=[...D].sort((a,b)=>a.cumpl-b.cumpl)[0];
+  const cumpls=D.map(r=>r.cumpl);const prom=cumpls.length?cumpls.reduce((a,b)=>a+b,0)/cumpls.length:0;
+  const best=[...D].sort((a,b)=>b.cumpl-a.cumpl)[0],worst=[...D].sort((a,b)=>a.cumpl-b.cumpl)[0];
   const lastPiso=Ds.length?Ds[Ds.length-1].enPiso:0;
-  kpiCards(prefix+'-kpi',[
+  kpiCards('g51-kpi',[
     {l:'Días registrados',v:D.length,ic:'fa-calendar-days',c:'blue'},
     {l:'Total entregan',v:sum('entregan'),ic:'fa-box-open',c:'green'},
     {l:'Sale a ruta',v:sum('saleRuta'),ic:'fa-truck-fast',c:'blue'},
@@ -2065,88 +2211,93 @@ function renderGestion(prefix,rows){
     {l:'Peor día',v:worst?worst.cumpl:0,suf:'%',ic:'fa-triangle-exclamation',c:'red',t:worst?worst.fecha:'',up:0},
     {l:'Total movido',v:sum('totalDia'),ic:'fa-layer-group',c:'purple'}
   ]);
-  const mesesAll=uniq(rows.map(r=>r.mes));
-  const sumByMes=k=>mesesAll.map(m=>rows.filter(r=>r.mes===m).reduce((a,r)=>a+(r[k]||0),0));
-  mkChart(prefix+'-mes',{type:'bar',data:{labels:mesesAll,datasets:[
-    {label:'Entregan',data:sumByMes('entregan'),backgroundColor:CO.green,borderRadius:6,maxBarThickness:30},
-    {label:'Sale a ruta',data:sumByMes('saleRuta'),backgroundColor:CO.blue,borderRadius:6,maxBarThickness:30},
-    {label:'En piso',data:sumByMes('enPiso'),backgroundColor:CO.yellow,borderRadius:6,maxBarThickness:30}
-  ]},options:{...BC.base,scales:{x:BC.grid,y:BC.grid}}});
+  const mesesAll=sortMes(uniq(rows.map(r=>r.mes)));
+  const sumByMes=k=>mesesAll.map(mm=>rows.filter(r=>r.mes===mm).reduce((a,r)=>a+(r[k]||0),0));
+  mkChart('g51-mes',{type:'bar',data:{labels:mesesAll,datasets:[
+    {label:'Entregan',data:sumByMes('entregan'),backgroundColor:CO.green,borderRadius:6,maxBarThickness:34},
+    {label:'Sale a ruta',data:sumByMes('saleRuta'),backgroundColor:CO.blue,borderRadius:6,maxBarThickness:34},
+    {label:'En piso',data:sumByMes('enPiso'),backgroundColor:CO.yellow,borderRadius:6,maxBarThickness:34}
+  ]},options:{...BC.base,plugins:{legend:legBase},scales:{x:BC.grid,y:BC.grid}}});
   const labels=Ds.map(r=>r.fecha);
-  mkChart(prefix+'-flujo',{type:'bar',data:{labels,datasets:[
-    {label:'Sale a ruta',data:Ds.map(r=>r.saleRuta),backgroundColor:CO.blue,borderRadius:5,maxBarThickness:26},
-    {label:'En piso',data:Ds.map(r=>r.enPiso),backgroundColor:CO.yellow,borderRadius:5,maxBarThickness:26}
-  ]},options:{...BC.base,scales:{x:{...BC.grid,stacked:true},y:{...BC.grid,stacked:true}}}});
-  mkChart(prefix+'-total',{type:'line',data:{labels,datasets:[{label:'Total al día',data:Ds.map(r=>r.totalDia),borderColor:CO.purple,backgroundColor:gradFill('#A855F7'),fill:true,tension:.38,borderWidth:2.6,pointRadius:3}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
-  mkChart(prefix+'-cumpl',{type:'line',data:{labels,datasets:[{label:'% Cumplimiento',data:Ds.map(r=>r.cumpl),borderColor:CO.green,backgroundColor:gradFill('#22C55E'),fill:true,tension:.38,borderWidth:2.6,pointRadius:4,pointBackgroundColor:Ds.map(r=>r.cumpl>=85?CO.green:r.cumpl>=70?CO.yellow:CO.red)}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,suggestedMax:100,suggestedMin:0}}}});
-  renderTable(prefix+'-table',['DÍA','FECHA','MES','ENTREGAN','SALE A RUTA','EN PISO','TOTAL DÍA','CUMPL.','OBS.'],
-    [...Ds].reverse().map(r=>[r.dia,r.fecha,r.mes,r.entregan,r.saleRuta,r.enPiso,r.totalDia,cumplPill(r.cumpl),r.obs||'—']));
-  const cEl=document.getElementById(prefix+'-count');if(cEl)cEl.textContent=D.length+' días';
-  const sEl=document.getElementById(prefix+'-stamp');if(sEl)sEl.textContent=stampNow();
+  mkChart('g51-flujo',{type:'bar',data:{labels,datasets:[
+    {label:'Sale a ruta',data:Ds.map(r=>r.saleRuta),backgroundColor:CO.blue,borderRadius:5,maxBarThickness:24},
+    {label:'En piso',data:Ds.map(r=>r.enPiso),backgroundColor:CO.yellow,borderRadius:5,maxBarThickness:24}
+  ]},options:{...BC.base,plugins:{legend:legBase},scales:{x:{...BC.grid,stacked:true},y:{...BC.grid,stacked:true}}}});
+  mkChart('g51-total',{type:'line',data:{labels,datasets:[{label:'Total al día',data:Ds.map(r=>r.totalDia),borderColor:CO.purple,backgroundColor:gradFill('#A855F7'),fill:true,tension:.38,borderWidth:2.5,pointRadius:3}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:BC.grid}}});
+  mkChart('g51-cumpl',{type:'line',data:{labels,datasets:[{label:'% Cumplimiento',data:Ds.map(r=>r.cumpl),borderColor:CO.green,backgroundColor:gradFill('#22C55E'),fill:true,tension:.38,borderWidth:2.5,pointRadius:4,pointBackgroundColor:Ds.map(r=>r.cumpl>=85?CO.green:r.cumpl>=70?CO.yellow:CO.red)}]},options:{...BC.base,plugins:{legend:{display:false}},scales:{x:BC.grid,y:{...BC.grid,suggestedMax:100}}}});
+  renderTable('g51-table',['DÍA','FECHA','MES','ENTREGAN','SALE A RUTA','EN PISO','TOTAL DÍA','CUMPL.'],
+    [...Ds].reverse().map(r=>[r.dia,r.fecha,r.mes,r.entregan,r.saleRuta,r.enPiso,r.totalDia,cumplPill(r.cumpl)]));
+  const cEl=document.getElementById('g51-count');if(cEl)cEl.textContent=D.length+' días';
+  const sEl=document.getElementById('g51-stamp');if(sEl)sEl.textContent=stampNow();
 }
 
 /* ---------- MOTOR IA ---------- */
 function trendWord(x,piso){return x>0.5?(piso?'una tendencia <b style="color:#facc15">creciente</b> (a vigilar)':'una <b style="color:#4ade80">mejora</b>'):x<-0.5?(piso?'una <b style="color:#4ade80">reducción</b>':'una <b style="color:#f87171">caída</b>'):'<b>estabilidad</b>';}
-function iaHistorico(){
-  const D=HIST;if(!D.length)return{r:'<p>Sin datos de HISTORICO.</p>',s:'',a:''};
-  const tipo=sortObj(groupCount(D,r=>r.tipo)), veh=sortObj(groupCount(D,r=>r.vehiculo));
-  const porFecha=groupCount(D,r=>r.fecha);
-  const dias=uniq(D.map(r=>r.fecha)).length, total=D.length, prom=dias?total/dias:0;
-  const pico=Object.entries(porFecha).sort((a,b)=>b[1]-a[1])[0]||['—',0];
-  const sem=groupCount(D,r=>{const d=parseD(r.fecha);return d?weekKey(d):null;});
-  const semVals=Object.keys(sem).filter(k=>k&&k!=='—').sort().map(k=>sem[k]);
+function iaNacional(){
+  if(!NAC.length)return{r:'<p>Sin datos nacionales.</p>',s:'',a:''};
+  const cities=uniq(NAC.map(r=>r.city));
+  const byCity=cities.map(c=>{const cd=NAC.filter(r=>r.city===c);const e=cd.reduce((a,r)=>a+r.efectivo,0),n=cd.reduce((a,r)=>a+r.novedad,0),t=cd.reduce((a,r)=>a+r.total,0);return{c,e,n,t,cumpl:t?e/t*100:0};});
+  const ef=byCity.reduce((a,x)=>a+x.e,0),nv=byCity.reduce((a,x)=>a+x.n,0),tot=byCity.reduce((a,x)=>a+x.t,0);
+  const cumpl=tot?ef/tot*100:0;
+  const bestCity=[...byCity].sort((a,b)=>b.cumpl-a.cumpl)[0],worstCity=[...byCity].sort((a,b)=>a.cumpl-b.cumpl)[0];
+  const topNov=sortObj(groupSum(NOVNAC,r=>r.novedad,r=>r.count));
+  const topNovE=Object.entries(topNov)[0]||['—',0];
+  const sem=groupSum(NAC,r=>r.week,r=>r.total);const semVals=Object.keys(sem).filter(k=>k&&k!=='—').sort().map(k=>sem[k]);
   const tr=slope(semVals);
-  const tipoTop=Object.entries(tipo)[0]||['—',0], vehTop=Object.entries(veh)[0]||['—',0];
-  const trTxt=tr>0.5?'<b style="color:#4ade80">creciente</b>':tr<-0.5?'<b style="color:#f87171">decreciente</b>':'<b style="color:#facc15">estable</b>';
-  const proj=Math.max(0,Math.round((semVals[semVals.length-1]||prom*5)+tr));
-  const legalPend=D.filter(r=>!r.fechaLeg).length;
-  const r=`<h4>Resumen ejecutivo · Histórico</h4>
-    <p>En el periodo analizado se registraron <b>${total.toLocaleString('es')} guías</b> en <b>${dias} días</b> operativos, con un promedio de <b>${prom.toFixed(1)} guías/día</b>. El tipo predominante es <b>${tipoTop[0]}</b> (${pct(tipoTop[1],total)}%) y el medio de entrega más usado es <b>${vehTop[0]}</b> (${pct(vehTop[1],total)}%). El volumen semanal muestra una tendencia ${trTxt}.</p>
-    <p>El día de mayor actividad fue <b>${pico[0]}</b> con <b>${pico[1]} guías</b>. Proyección estimada próxima semana: <b>~${proj} guías</b>.</p>`;
+  const r=`<h4>Resumen ejecutivo · Nacional</h4>
+    <p>Se gestionaron <b>${tot.toLocaleString('es')}</b> envíos en ${cities.length} ciudades: <b>${ef.toLocaleString('es')}</b> efectivos y <b>${nv.toLocaleString('es')}</b> novedades, con un <b>cumplimiento global de <span style="color:${cumpl>=90?'#4ade80':cumpl>=80?'#facc15':'#f87171'}">${cumpl.toFixed(1)}%</span></b>. El volumen semanal muestra ${trendWord(tr)}.</p>
+    <p>Mejor ciudad en cumplimiento: <b>${bestCity.c}</b> (${bestCity.cumpl.toFixed(1)}%). La de mayor oportunidad: <b>${worstCity.c}</b> (${worstCity.cumpl.toFixed(1)}%). La novedad más frecuente a nivel nacional es <b>${topNovE[0]}</b> (${topNovE[1]} casos).</p>`;
   const s=`<ul>
-    <li>Priorizar la capacidad de <b>${vehTop[0]}</b>, que concentra la mayor parte de las entregas.</li>
-    <li>${tr>0.5?'El volumen viene creciendo: anticipar malla y recurso para sostener el ritmo.':tr<-0.5?'El volumen viene cayendo: revisar causas (estacionalidad, demanda) y ajustar recurso.':'Volumen estable: mantener la planeación actual y monitorear.'}</li>
-    <li>Asegurar SLA específico para <b>${tipoTop[0]}</b>, el tipo de guía dominante.</li>
-    <li>Estandarizar el registro de <b>FECHA LEGALIZACIÓN</b> para medir tiempos de cierre.</li></ul>`;
+    <li>Enfocar plan de mejora en <b>${worstCity.c}</b>, la ciudad con menor cumplimiento (${worstCity.cumpl.toFixed(1)}%).</li>
+    <li>Atacar la causa raíz de <b>${topNovE[0]}</b>, principal motivo de novedad — depurar bases de direcciones y confirmar datos antes del despacho.</li>
+    <li>Replicar las buenas prácticas de <b>${bestCity.c}</b> en el resto de ciudades.</li>
+    <li>${tr>0.5?'El volumen crece: anticipar recurso para sostener el nivel de servicio.':tr<-0.5?'El volumen decrece: revisar demanda y estacionalidad.':'Volumen estable: mantener la planeación.'}</li></ul>`;
   const a=`<ul>
-    ${legalPend?`<li><span class="pill pill-y">Atención</span> ${legalPend.toLocaleString('es')} guías sin <b>fecha de legalización</b> registrada.</li>`:''}
-    ${tr<-0.5?'<li><span class="pill pill-r">Riesgo</span> Caída sostenida del volumen semanal.</li>':''}
-    ${pico[1]>prom*2?`<li><span class="pill pill-y">Pico</span> ${pico[0]} superó el doble del promedio diario; validar recurso para esos días.</li>`:''}
-    ${(!legalPend&&tr>=-0.5&&pico[1]<=prom*2)?'<li><span class="pill pill-g">OK</span> Sin alertas críticas en el histórico.</li>':''}</ul>`;
+    ${cumpl<80?'<li><span class="pill pill-r">Crítico</span> Cumplimiento nacional por debajo del 80%.</li>':''}
+    ${worstCity.cumpl<80?`<li><span class="pill pill-y">Atención</span> ${worstCity.c} con cumplimiento de ${worstCity.cumpl.toFixed(1)}%.</li>`:''}
+    ${cumpl>=90?'<li><span class="pill pill-g">OK</span> Cumplimiento nacional en nivel óptimo.</li>':''}</ul>`;
   return{r,s,a};
 }
-function iaGestion(rows,label){
+function iaGest51(rows,label){
   if(!rows.length)return{r:`<p>Sin datos en ${label}.</p>`,s:'',a:''};
   const D=[...rows].sort((a,b)=>(a._d||0)-(b._d||0));
-  const cumpls=D.map(r=>r.cumpl), prom=cumpls.reduce((a,b)=>a+b,0)/cumpls.length, meta=85;
+  const cumpls=D.map(r=>r.cumpl),prom=cumpls.reduce((a,b)=>a+b,0)/cumpls.length,meta=85;
   const bajo=D.filter(r=>r.cumpl<meta);
-  const sumE=D.reduce((a,r)=>a+r.entregan,0),sumR=D.reduce((a,r)=>a+r.saleRuta,0),sumP=D.reduce((a,r)=>a+r.enPiso,0);
-  const pisoTrend=slope(D.map(r=>r.enPiso)), cumplTrend=slope(cumpls);
-  const best=[...D].sort((a,b)=>b.cumpl-a.cumpl)[0], worst=[...D].sort((a,b)=>a.cumpl-b.cumpl)[0];
+  const sumE=D.reduce((a,r)=>a+r.entregan,0),sumP=D.reduce((a,r)=>a+r.enPiso,0);
+  const pisoTrend=slope(D.map(r=>r.enPiso));
+  const best=[...D].sort((a,b)=>b.cumpl-a.cumpl)[0],worst=[...D].sort((a,b)=>a.cumpl-b.cumpl)[0];
   const col=prom>=meta?'#4ade80':prom>=70?'#facc15':'#f87171';
   const r=`<h4>Resumen ejecutivo · ${label}</h4>
-    <p>Sobre <b>${D.length} días</b> registrados, el <b>cumplimiento promedio</b> es <b style="color:${col}">${prom.toFixed(1)}%</b> (meta ${meta}%). Se entregaron <b>${sumE.toLocaleString('es')}</b> unidades, salieron a ruta <b>${sumR.toLocaleString('es')}</b> y quedaron en piso <b>${sumP.toLocaleString('es')}</b> de forma acumulada. El cumplimiento muestra ${trendWord(cumplTrend)} y el inventario en piso ${trendWord(pisoTrend,true)}.</p>
-    <p>Mejor día: <b>${best.fecha}</b> (${best.cumpl}%). Día más crítico: <b>${worst.fecha}</b> (${worst.cumpl}%). Días bajo la meta: <b>${bajo.length}</b> de ${D.length}.</p>`;
+    <p>Sobre <b>${D.length} días</b>, el cumplimiento promedio es <b style="color:${col}">${prom.toFixed(1)}%</b> (meta ${meta}%). Se entregaron <b>${sumE.toLocaleString('es')}</b> unidades y quedaron en piso <b>${sumP.toLocaleString('es')}</b> acumuladas. El inventario en piso muestra ${trendWord(pisoTrend,true)}. Mejor día: <b>${best.fecha}</b> (${best.cumpl}%); más crítico: <b>${worst.fecha}</b> (${worst.cumpl}%). Días bajo meta: <b>${bajo.length}</b>/${D.length}.</p>`;
   const s=`<ul>
-    <li>${prom>=meta?'Cumplimiento en meta: sostener la operación y documentar buenas prácticas de los mejores días.':'Cumplimiento bajo meta: reforzar capacidad de ruta en los días de mayor entrega.'}</li>
-    <li>${pisoTrend>0.5?'El inventario en piso crece: revisar cuellos de botella en alistamiento/ruta para evitar acumulación.':'Inventario en piso bajo control: mantener el flujo actual.'}</li>
-    <li>Atacar los <b>${bajo.length} días</b> bajo meta analizando observaciones y causas recurrentes.</li>
-    <li>Estabilizar la variabilidad: diferencia entre mejor (${best.cumpl}%) y peor día (${worst.cumpl}%).</li></ul>`;
+    <li>${prom>=meta?`${label}: cumplimiento en meta, sostener la operación.`:`${label}: reforzar capacidad de ruta para subir el cumplimiento.`}</li>
+    <li>${pisoTrend>0.5?'Inventario en piso creciente: revisar alistamiento y priorización de ruta.':'Inventario en piso controlado.'}</li></ul>`;
   const a=`<ul>
-    ${prom<70?'<li><span class="pill pill-r">Crítico</span> Cumplimiento promedio por debajo del 70%.</li>':''}
-    ${pisoTrend>0.5?'<li><span class="pill pill-y">Backlog</span> Tendencia creciente de unidades en piso.</li>':''}
-    ${bajo.length>D.length/2?`<li><span class="pill pill-y">Atención</span> Más de la mitad de los días (${bajo.length}/${D.length}) bajo la meta.</li>`:''}
-    ${worst.cumpl<50?`<li><span class="pill pill-r">Día crítico</span> ${worst.fecha} cerró en ${worst.cumpl}%.</li>`:''}
-    ${(prom>=meta&&pisoTrend<=0.5)?'<li><span class="pill pill-g">OK</span> Operación dentro de parámetros.</li>':''}</ul>`;
+    ${prom<70?`<li><span class="pill pill-r">Crítico</span> ${label}: cumplimiento bajo 70%.</li>`:''}
+    ${pisoTrend>0.5?`<li><span class="pill pill-y">Backlog</span> ${label}: piso en aumento.</li>`:''}
+    ${(prom>=meta&&pisoTrend<=0.5)?`<li><span class="pill pill-g">OK</span> ${label} dentro de parámetros.</li>`:''}</ul>`;
+  return{r,s,a};
+}
+function iaCalle51(){
+  const totRec=RECI.length,totNov=NOVC.length;
+  const topTipo=Object.entries(sortObj(groupCount(RECI,r=>r.tipo)))[0]||['—',0];
+  const topNov=Object.entries(sortObj(groupCount(NOVC,r=>r.novedad)))[0]||['—',0];
+  const mot=RECI.filter(r=>r.vehiculo==='MOTORIZADO').length,car=RECI.filter(r=>r.vehiculo==='CARRY').length;
+  const ratio=totRec?(totNov/totRec*100):0;
+  const r=`<h4>Resumen ejecutivo · Calle 51</h4>
+    <p>Se recibieron <b>${totRec.toLocaleString('es')}</b> guías (${mot.toLocaleString('es')} motorizado, ${car.toLocaleString('es')} carry) y se registraron <b>${totNov.toLocaleString('es')}</b> novedades (≈ ${ratio.toFixed(1)}% del recibido). Tipo de guía dominante: <b>${topTipo[0]}</b>. Novedad más frecuente: <b>${topNov[0]}</b> (${topNov[1]} casos).</p>`;
+  const s=`<ul>
+    <li>Reducir <b>${topNov[0]}</b>, principal novedad de Calle 51.</li>
+    <li>Balancear la carga entre motorizado (${mot.toLocaleString('es')}) y carry (${car.toLocaleString('es')}) según volumen por zona.</li></ul>`;
+  const a=`<ul>${ratio>15?`<li><span class="pill pill-y">Atención</span> Las novedades representan ${ratio.toFixed(1)}% del recibido.</li>`:'<li><span class="pill pill-g">OK</span> Proporción de novedades bajo control.</li>'}</ul>`;
   return{r,s,a};
 }
 function instReport(which){
   let res;
-  if(which==='historico')res=iaHistorico();
-  else if(which==='gestion')res=iaGestion(GEST,'Gestión');
-  else if(which==='carry')res=iaGestion(GESTC,'Gestión Carry');
-  else{const h=iaHistorico(),g=iaGestion(GEST,'Gestión'),c=iaGestion(GESTC,'Gestión Carry');
-    res={r:h.r+g.r+c.r,s:h.s+g.s+c.s,a:h.a+g.a+c.a};}
+  if(which==='nacional')res=iaNacional();
+  else if(which==='calle51')res=iaCalle51();
+  else if(which==='gestion'){const m=iaGest51(GMOT,'Gestión Motos'),c=iaGest51(GCAR,'Gestión Carry');res={r:m.r+c.r,s:m.s+c.s,a:m.a+c.a};}
+  else{const n=iaNacional(),c=iaCalle51(),m=iaGest51(GMOT,'Gestión Motos'),cy=iaGest51(GCAR,'Gestión Carry');res={r:n.r+c.r+m.r+cy.r,s:n.s+c.s+m.s+cy.s,a:n.a+c.a+m.a+cy.a};}
   const o=document.getElementById('inst-ia-out');if(o)o.innerHTML=res.r||'Sin datos.';
   const su=document.getElementById('inst-ia-sug');if(su)su.innerHTML=res.s||'—';
   const al=document.getElementById('inst-ia-alert');if(al)al.innerHTML=res.a||'—';
@@ -2159,24 +2310,33 @@ function switchProject(p){
   document.querySelectorAll('.proj-btn').forEach(b=>b.classList.toggle('active',b.dataset.project===p));
   document.querySelectorAll('.nav-group').forEach(g=>{g.hidden=(g.dataset.project!==p);});
   if(p==='comercial')switchView('resumen');
-  else if(p==='biologicos')switchView('bio-soon');
-  else{switchView('inst-historico');ensureInst();}
+  else{switchView('inst-nacional');ensureInst();}
 }
 window.switchProject=switchProject;
 
 /* ---------- Wiring ---------- */
 document.querySelectorAll('.proj-btn').forEach(b=>b.addEventListener('click',()=>switchProject(b.dataset.project)));
-document.querySelectorAll('.nav-item[data-view^="inst-"],.nav-item[data-view="bio-soon"]').forEach(n=>n.addEventListener('click',()=>{setTimeout(()=>Object.values(instCharts).forEach(c=>{try{c.resize();}catch(e){}}),80);}));
-['h-fMes','h-fTipo','h-fVeh','h-fDia','h-fSearch'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('input',renderHistorico);});
-const hr=document.getElementById('h-reset');if(hr)hr.addEventListener('click',()=>{['h-fMes','h-fTipo','h-fVeh','h-fDia','h-fSearch'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});renderHistorico();});
-const gm=document.getElementById('gest-fMes');if(gm)gm.addEventListener('change',()=>renderGestion('gest',GEST));
-const gr=document.getElementById('gest-reset');if(gr)gr.addEventListener('click',()=>{gm.value='';renderGestion('gest',GEST);});
-const cm=document.getElementById('carry-fMes');if(cm)cm.addEventListener('change',()=>renderGestion('carry',GESTC));
-const cr=document.getElementById('carry-reset');if(cr)cr.addEventListener('click',()=>{cm.value='';renderGestion('carry',GESTC);});
-const hib=document.getElementById('h-ia-btn');if(hib)hib.addEventListener('click',()=>{const x=iaHistorico();document.getElementById('h-ia-card').style.display='';document.getElementById('h-ia-out').innerHTML=x.r+'<h4>Sugerencias</h4>'+x.s+'<h4>Alertas</h4>'+x.a;});
-function wireGestIA(prefix,getRows,label){const b=document.getElementById(prefix+'-ia-btn');if(b)b.addEventListener('click',()=>{const x=iaGestion(getRows(),label);document.getElementById(prefix+'-ia-card').style.display='';document.getElementById(prefix+'-ia-out').innerHTML=x.r+'<h4>Sugerencias</h4>'+x.s+'<h4>Alertas</h4>'+x.a;});}
-wireGestIA('gest',()=>GEST,'Gestión');
-wireGestIA('carry',()=>GESTC,'Gestión Carry');
+const INST_RENDER={'inst-nacional':renderNacional,'inst-recibido':renderRecibido,'inst-novc51':renderNovC51,'inst-gestion51':renderGest51};
+document.querySelectorAll('.nav-item[data-view^="inst-"]').forEach(n=>n.addEventListener('click',()=>{
+  if(!instLoaded)return;
+  const fn=INST_RENDER[n.dataset.view];
+  if(fn){try{fn();}catch(e){console.warn('re-render',e);}}
+  setTimeout(()=>Object.values(instCharts).forEach(c=>{try{c.resize();}catch(e){}}),60);
+}));
+// Nacional
+['nac-fCity','nac-fMes'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('change',renderNacional);});
+const nacR=document.getElementById('nac-reset');if(nacR)nacR.addEventListener('click',()=>{['nac-fCity','nac-fMes'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});renderNacional();});
+// Recibido
+['rec-fMes','rec-fTipo'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('change',renderRecibido);});
+const recR=document.getElementById('rec-reset');if(recR)recR.addEventListener('click',()=>{['rec-fMes','rec-fTipo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});renderRecibido();});
+document.querySelectorAll('#rec-toggle .seg-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#rec-toggle .seg-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');recVeh=b.dataset.veh;renderRecibido();}));
+// Novedades C51
+['nvc-fMes','nvc-fNov','nvc-fTipo'].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('change',renderNovC51);});
+const nvcR=document.getElementById('nvc-reset');if(nvcR)nvcR.addEventListener('click',()=>{['nvc-fMes','nvc-fNov','nvc-fTipo'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});renderNovC51();});
+// Gestión 51
+const g51M=document.getElementById('g51-fMes');if(g51M)g51M.addEventListener('change',renderGest51);
+const g51R=document.getElementById('g51-reset');if(g51R)g51R.addEventListener('click',()=>{g51M.value='';renderGest51();});
+document.querySelectorAll('#g51-toggle .seg-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#g51-toggle .seg-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');g51Mode=b.dataset.mode;renderGest51();}));
 })();
 </script>
 </body>
