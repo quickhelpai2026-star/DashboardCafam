@@ -598,11 +598,11 @@ table.dataTable tbody tr:hover td{background:rgba(37,99,235,.1)}
           <div class="cf-bar"><select class="cf-sel" id="nac-dia-city"><option value="">Ciudad: todas</option></select><select class="cf-sel" id="nac-dia-mes"><option value="">Mes: todos</option></select></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-dia"></canvas></div></div></div>
         <div class="card"><div class="card-h"><div><h3>Tendencia por día de la semana</h3><div class="sub">Volumen total acumulado por día (Lun–Dom)</div></div>
           <div class="cf-bar"><select class="cf-sel" id="nac-sem-city"><option value="">Ciudad: todas</option></select><select class="cf-sel" id="nac-sem-mes"><option value="">Mes: todos</option></select></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-sem"></canvas></div></div></div>
-        <div class="card"><div class="card-h"><div><h3>Hora promedio de operación por día</h3><div class="sub">Hora promedio de entrega (HH:MM) — tendencia diaria</div></div>
+        <div class="card"><div class="card-h"><div><h3>Hora promedio de operación por día</h3><div class="sub" id="nac-hdia-sub">Hora promedio de entrega (formato militar 24h)</div></div>
           <div class="cf-bar"><select class="cf-sel" id="nac-hdia-city"><option value="">Ciudad: todas</option></select><select class="cf-sel" id="nac-hdia-mes"><option value="">Mes: todos</option></select></div></div><div class="card-body"><div class="chart-wrap xl"><canvas id="nac-hdia"></canvas></div></div></div>
         <div class="grid-2">
-          <div class="card"><div class="card-h"><div><h3>Hora promedio por ciudad</h3><div class="sub">Promedio del periodo (HH:MM)</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-hciu"></canvas></div></div></div>
-          <div class="card"><div class="card-h"><div><h3>Hora promedio por mes</h3><div class="sub">Comparativo mensual por ciudad (HH:MM)</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-hmes"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Hora promedio por ciudad</h3><div class="sub" id="nac-hciu-sub">Promedio del periodo (formato militar 24h)</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-hciu"></canvas></div></div></div>
+          <div class="card"><div class="card-h"><div><h3>Hora promedio por mes</h3><div class="sub" id="nac-hmes-sub">Comparativo mensual por ciudad (formato militar 24h)</div></div></div><div class="card-body"><div class="chart-wrap lg"><canvas id="nac-hmes"></canvas></div></div></div>
         </div>
         <div class="card"><div class="card-h"><div><h3>Tipo de novedad por mes</h3><div class="sub">Barras horizontales para lectura clara del texto</div></div>
           <div class="cf-bar"><select class="cf-sel" id="nac-novmes-mes"><option value="">Mes: todos</option></select></div></div><div class="card-body"><div class="chart-wrap tall"><canvas id="nac-novmes"></canvas></div></div></div>
@@ -2133,7 +2133,7 @@ function kpiCards(container,arr){
   const g=document.getElementById(container);if(!g)return;g.innerHTML='';
   arr.forEach((k,i)=>{const el=document.createElement('div');el.className='kpi';el.style.animationDelay=(i*0.04)+'s';
     el.innerHTML=`<div class="top"><div><div class="label">${k.l}</div></div><div class="ic bg-${k.c}"><i class="fa-solid ${k.ic}"></i></div></div>
-      <div class="val" data-target="${k.v}" data-dec="${k.dec||0}" data-suf="${k.suf||''}">0</div>
+      ${k.txt!==undefined?`<div class="val">${k.txt}</div>`:`<div class="val" data-target="${k.v}" data-dec="${k.dec||0}" data-suf="${k.suf||''}">0</div>`}
       ${k.t?`<div class="trend ${k.up===0?'t-down':'t-up'}"><i class="fa-solid fa-arrow-trend-${k.up===0?'down':'up'}"></i>${k.t}</div>`:''}`;
     g.appendChild(el);});
   g.querySelectorAll('.val[data-target]').forEach(el=>{const tgt=parseFloat(el.dataset.target)||0,dec=+el.dataset.dec,suf=el.dataset.suf;let s=0,step=tgt/40||1;const t=setInterval(()=>{s+=step;if(s>=tgt){s=tgt;clearInterval(t);}el.innerHTML=s.toLocaleString('es',{maximumFractionDigits:dec,minimumFractionDigits:dec})+(suf?`<small>${suf}</small>`:'');},18);});
@@ -2147,7 +2147,7 @@ const legBase={labels:(BC.base.plugins&&BC.base.plugins.legend)?BC.base.plugins.
 /* ---------- Parsers ---------- */
 function fetchInst(sheet,header){return new Promise((res,rej)=>{Papa.parse(INST_CFG.url(sheet),{download:true,header:header,skipEmptyLines:true,complete:r=>res(r.data),error:rej});});}
 function parseHora(s){const m=String(s||'').trim().match(/(\d{1,2}):(\d{2})(?::(\d{2}))?/);if(!m)return null;const h=+m[1]+(+m[2])/60+(m[3]?(+m[3])/3600:0);return h>=0&&h<24?h:null;}
-function hhmm(h){if(h==null||isNaN(h))return '—';const hh=Math.floor(h),mm=Math.round((h-hh)*60);return (mm===60?(hh+1):hh)+':'+String(mm===60?0:mm).padStart(2,'0');}
+function hhmm(h){if(h==null||isNaN(h))return '—';let hh=Math.floor(h),mm=Math.round((h-hh)*60);if(mm===60){hh+=1;mm=0;}return String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');}
 function parseNacional(rows){
   const blocks=[{city:'Bucaramanga',off:0},{city:'Cúcuta',off:9},{city:'Santa Marta',off:18}];
   const out=[];
@@ -2246,11 +2246,14 @@ function renderNacional(){
   const cumpl=tot?ef/tot*100:0;
   const porFecha=groupSum(D,r=>r.fecha,r=>r.efectivo);
   const pico=Object.entries(porFecha).sort((a,b)=>b[1]-a[1])[0]||['—',0];
+  const horasD=D.filter(r=>r.horaH!=null).map(r=>r.horaH);
+  const avgHora=horasD.length?horasD.reduce((a,b)=>a+b,0)/horasD.length:null;
   kpiCards('nac-kpi',[
     {l:'Total efectivo',v:ef,ic:'fa-circle-check',c:'green'},
     {l:'Total novedades',v:nv,ic:'fa-triangle-exclamation',c:'red'},
     {l:'Total general',v:tot,ic:'fa-boxes-stacked',c:'blue'},
     {l:'% Cumplimiento',v:cumpl,suf:'%',dec:1,ic:'fa-gauge-high',c:cumpl>=90?'green':cumpl>=80?'yellow':'red',t:cumpl>=90?'Óptimo':'Revisar',up:cumpl>=90?1:0},
+    {l:'Hora promedio gral.',txt:hhmm(avgHora),ic:'fa-clock',c:'yellow',t:'Hora militar (24h)',up:1},
     {l:'Ciudades',v:uniq(D.map(r=>r.city)).length,ic:'fa-city',c:'purple'},
     {l:'Día pico',v:pico[1],suf:' ent',ic:'fa-arrow-up-right-dots',c:'green',t:pico[0],up:1}
   ]);
@@ -2274,14 +2277,18 @@ function renderNacional(){
   /* ----- Tiempos (HORA PROMEDIO) ----- */
   const horaTip={callbacks:{label:c=>' '+hhmm(c.parsed.y!=null?c.parsed.y:c.parsed)}};
   const horaY={...BC.grid,ticks:{...(BC.grid.ticks||{}),callback:v=>hhmm(v)}};
+  const avgOf=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:null;
   const hdiaCity=v('nac-hdia-city')||city,hdiaMes=v('nac-hdia-mes')||mes;
   const Dh=NAC.filter(r=>r.horaH!=null&&(!hdiaCity||r.city===hdiaCity)&&(!hdiaMes||r.mes===hdiaMes));
   const hfechas=uniq(Dh.map(r=>r.fecha)).sort((a,b)=>(parseD(a)||0)-(parseD(b)||0));
   const hpd=groupAvg(Dh,r=>r.fecha,r=>r.horaH);
+  setHTML('nac-hdia-sub','Promedio general: <b style="color:#facc15">'+hhmm(avgOf(Dh.map(r=>r.horaH)))+'</b> (formato militar 24h)');
   mkChart('nac-hdia',{type:'line',data:{labels:hfechas,datasets:[{label:'Hora promedio',data:hfechas.map(f=>hpd[f]!=null?+hpd[f].toFixed(3):null),borderColor:CO.yellow,backgroundColor:gradFill('#EAB308'),fill:true,tension:.35,borderWidth:2.4,pointRadius:2,spanGaps:true}]},options:{...BC.base,plugins:{legend:{display:false},tooltip:horaTip},scales:{x:BC.grid,y:horaY}}});
   const hcCities=city?[city]:uniq(NAC.map(r=>r.city));
   const Dhc=NAC.filter(r=>r.horaH!=null&&(!mes||r.mes===mes));
   const hpc=groupAvg(Dhc,r=>r.city,r=>r.horaH);
+  setHTML('nac-hciu-sub','Promedio general: <b style="color:#facc15">'+hhmm(avgOf(Dhc.map(r=>r.horaH)))+'</b> (formato militar 24h)');
+  setHTML('nac-hmes-sub','Promedio general: <b style="color:#facc15">'+hhmm(avgOf(NAC.filter(r=>r.horaH!=null&&(!mes||r.mes===mes)).map(r=>r.horaH)))+'</b> · por ciudad (24h)');
   mkChart('nac-hciu',{type:'bar',data:{labels:hcCities,datasets:[{data:hcCities.map(c=>hpc[c]!=null?+hpc[c].toFixed(3):0),backgroundColor:hcCities.map(c=>CITY_COLOR[c]||CO.gray),borderRadius:8,maxBarThickness:70}]},options:{...BC.base,plugins:{legend:{display:false},tooltip:horaTip},scales:{x:BC.grid,y:horaY}}});
   mkChart('nac-hmes',{type:'bar',data:{labels:meses,datasets:hcCities.map(c=>({label:c,data:meses.map(m=>{const md=NAC.filter(r=>r.city===c&&r.mes===m&&r.horaH!=null);return md.length?+(md.reduce((a,r)=>a+r.horaH,0)/md.length).toFixed(3):null;}),backgroundColor:CITY_COLOR[c]||CO.gray,borderRadius:6,maxBarThickness:40}))},options:{...BC.base,plugins:{legend:legBase,tooltip:horaTip},scales:{x:BC.grid,y:horaY}}});
   const novD=NOVNAC.filter(r=>!city||r.city===city);
